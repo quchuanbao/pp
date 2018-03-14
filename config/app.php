@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     |
     */
-
+    'adminName' => '远诺电商管理系统',
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
