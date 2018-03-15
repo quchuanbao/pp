@@ -1,34 +1,53 @@
-var ComponentsEditors = function () {
-    
-    var handleWysihtml5 = function () {
-        if (!jQuery().wysihtml5) {
-            return;
+jQuery(document).ready(function() {
+    $.ajaxSetup({
+        headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
+    });
+
+    jQuery('#editor').summernote({
+        height: 300,
+        lang: 'zh-CN',
+        callbacks: {
+            onImageUpload: function(files, editor, welEditable) {
+                data = new FormData();
+                data.append("file", files[0]);
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                data.append("_token",CSRF_TOKEN);
+                $.ajax({
+                    data: data,
+                    type: "POST",
+                    url: "/admin/news/uploadimg",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(url) {
+                        $('#editor').summernote("insertImage",url,'filename');
+                    }
+                });
+            }
         }
+    });
 
-        if ($('.wysihtml5').size() > 0) {
-            $('.wysihtml5').wysihtml5({
-                "stylesheets": ["../assets/global/plugins/bootstrap-wysihtml5/wysiwyg-color.css"]
-            });
+    jQuery('#master_editor').summernote({
+        height: 300,
+        lang: 'zh-CN',
+        callbacks: {
+            onImageUpload: function(files, master_editor, welEditable) {
+                data = new FormData();
+                data.append("file", files[0]);
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                data.append("_token",CSRF_TOKEN);
+                $.ajax({
+                    data: data,
+                    type: "POST",
+                    url: "/admin/masters/uploadimg",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(url) {
+                        $('#master_editor').summernote("insertImage",url,'filename');
+                    }
+                });
+            }
         }
-    }
-
-    var handleSummernote = function () {
-        $('#summernote_1').summernote({height: 300});
-        //API:
-        //var sHTML = $('#summernote_1').code(); // get code
-        //$('#summernote_1').destroy(); // destroy
-    }
-
-    return {
-        //main function to initiate the module
-        init: function () {
-            handleWysihtml5();
-            handleSummernote();
-        }
-    };
-
-}();
-
-jQuery(document).ready(function() {    
-   ComponentsEditors.init(); 
+    });
 });

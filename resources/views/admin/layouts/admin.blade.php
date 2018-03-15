@@ -21,6 +21,13 @@
     <link href="/admin/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="/admin/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css" />
     <!-- END GLOBAL MANDATORY STYLES -->
+
+    <!--文件上传-->
+    <link href="/admin/global/plugins/bootstrap-fileinput/bootstrap-fileinput.css" rel="stylesheet" type="text/css" />
+    <!--系统通知-->
+    <link href="/admin/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
+
+
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="/admin/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
     <link href="/admin/global/css/plugins.min.css" rel="stylesheet" type="text/css" />
@@ -850,15 +857,15 @@
 
                     <li class="nav-item  ">
                         <a href="javascript:;" class="nav-link nav-toggle">
-                            <i class="icon-social-dribbble"></i>
-                            <span class="title">采购付款</span>
+                            <i class="icon-user"></i>
+                            <span class="title">管理员管理</span>
                             <span class="arrow"></span>
                         </a>
                         <ul class="sub-menu">
                             <li class="nav-item  ">
-                                <a href="page_general_about.html" class="nav-link ">
+                                <a href="/admin/admins/" class="nav-link ">
                                     <i class="icon-info"></i>
-                                    <span class="title">About</span>
+                                    <span class="title">管理员列表</span>
                                 </a>
                             </li>
 
@@ -875,7 +882,58 @@
         </div>
         <!-- END SIDEBAR -->
         <!-- BEGIN CONTENT -->
-        @yield('content')
+        <div class="page-content-wrapper">
+            <!-- BEGIN CONTENT BODY -->
+            <div class="page-content">
+                <!-- BEGIN PAGE HEADER-->
+
+                <!-- BEGIN PAGE BAR -->
+                <div class="page-bar">
+                    <ul class="page-breadcrumb">
+                        <li>
+                            <a href="index.html">首页</a>
+                            <i class="fa fa-circle"></i>
+                        </li>
+                        <li>
+                            <span>@yield('title')</span>
+                        </li>
+                    </ul>
+                    <div class="page-toolbar">
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Actions
+                                <i class="fa fa-angle-down"></i>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li>
+                                    <a href="#">
+                                        <i class="icon-bell"></i> Action</a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon-shield"></i> Another action</a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon-user"></i> Something else here</a>
+                                </li>
+                                <li class="divider"> </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="icon-bag"></i> Separated link</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- END PAGE BAR -->
+                <!-- BEGIN PAGE TITLE-->
+                <h1 class="page-title">
+                    {{--Lists<small>custom bootstrap list elements to be used within any layout</small>--}}
+                </h1>
+                @yield('content')
+            </div>
+            <!-- END : LISTS -->
+        </div>
         <!-- END CONTENT -->
     </div>
     <!-- END CONTAINER -->
@@ -905,10 +963,40 @@
 <!-- END CORE PLUGINS -->
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
 <script src="/admin/global/scripts/app.min.js" type="text/javascript"></script>
+
+<!--文件上传-->
+<script src="/admin/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
+<!--系统通知-->
+<script src="/admin/global/plugins/bootstrap-toastr/toastr.min.js" type="text/javascript"></script>
+<!--删除确认按钮-->
+<script src="/admin/pages/scripts/ui-confirmations.js" type="text/javascript"></script>
+
+
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->
 <script src="/admin/layouts/layout/scripts/layout.min.js" type="text/javascript"></script>
 <script src="/admin/layouts/layout/scripts/demo.min.js" type="text/javascript"></script>
+@if (session('notify'))
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "positionClass": "toast-top-right",
+            "onclick": null,
+            "showDuration": "1000",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        }
+
+        toastr.success("{{ session('notifyContent') }}", "{{ session('notify') }}");
+    </script>
+@endif
+
 <!-- END THEME LAYOUT SCRIPTS -->
 <script>
     $(document).ready(function()

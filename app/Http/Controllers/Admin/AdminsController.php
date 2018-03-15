@@ -50,7 +50,6 @@ class AdminsController extends Controller
             'name' => 'required|max:255',
             'tel' => 'required|max:255',
             'description' => 'required|max:255',
-            'promise' => 'required|max:255',
             'email' => 'required|email|max:255|unique:admins',
             'password' => 'required|min:6|confirmed',
             'pic' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -76,7 +75,6 @@ class AdminsController extends Controller
 
         $this->validate($request,$rules);
         $admins->description = $request['description'];
-        $admins->promise = $request['promise'];
         $admins->name = $request['name'];
         $admins->tel = $request['tel'];
         $admins->email = $request['email'];
@@ -90,42 +88,5 @@ class AdminsController extends Controller
         return redirect()->route('admins')->with('notify', '操作成功!');
     }
 
-    public function uploadPic(Request $request) {
-        if(!$request['files']){
-            return;
-        }
-        $rules = [
-            'files' => 'present|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ];
-        $this->validate($request,$rules);
-        $path = $request->file('files')->store('public/avatars');
 
-        $res['files'][0]['url'] = '/storage/avatars/'.$request->file('files')->hashName();
-        $res['files'][0]['thumbnailUrl'] = '/storage/avatars/'.$request->file('files')->hashName();
-        $res['files'][0]['name'] = $request->file('files')->getClientOriginalName();
-        $res['files'][0]['type'] = $request->file('files')->getClientMimeType();
-        $res['files'][0]['size'] = $request->file('files')->getSize();
-        $res['files'][0]['deleteUrl'] = '/admin/delpic/'.$request->file('files')->hashName();
-        $res['files'][0]['deleteType'] = 'DELETE';
-        return json_encode($res);
-    }
-
-    public function delPic($name='') {
-//        {
-//            "image%2Fjpeg/2848422310/%E6%9C%89%E6%84%8F%E6%80%9D.jpg": true,
-//    "image%2Fjpeg/2848422310/%E6%9C%89%E6%84%8F%E6%80%9D.jpg.80x80.jpg": true
-//}
-        $res[$name]=true;
-        return json_encode($res);
-    }
-    public function postImage(Request $request){
-        $rules = [
-            'upload' => 'present|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ];
-        $this->validate($request,$rules);
-        $request->file('files')->store('public/images');
-        return '/storage/images/'.$request->file('upload')->hashName();
-
-
-    }
 }
