@@ -1001,7 +1001,7 @@
 <!--删除确认按钮-->
 <script src="/admin/pages/scripts/ui-confirmations.js" type="text/javascript"></script>
 <!--多选框-->
-<script src="/admin/pages/scripts/components-multi-select.min.js" type="text/javascript"></script>
+<script src="/admin/pages/scripts/components-multi-select.js" type="text/javascript"></script>
 
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->

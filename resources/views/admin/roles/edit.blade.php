@@ -65,14 +65,12 @@
 
                             <div class="form-body">
                                 <div class="form-group">
-                                    <label class="control-label col-md-3">Default</label>
+                                    <label class="control-label col-md-3">分配权限</label>
                                     <div class="col-md-9">
                                         <select multiple="multiple" class="multi-select" id="permission" name="permission[]">
                                             @foreach ($permission as $row)
-                                                <option>{{$row->name}}</option>
+                                                <option value="{{$row->id}}" @if ($list->hasPermission($row->name)) selected @endif >{{$row->display_name}}</option>
                                             @endforeach
-                                            <option selected>Philadelphia Eagles</option>
-                                            <option selected>Washington Redskins</option>
                                         </select>
                                     </div>
                                 </div>

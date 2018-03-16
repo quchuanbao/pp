@@ -18,7 +18,7 @@ class RoleController extends Controller
 
     public function index()
     {
-        $list = Role::orderBy('id','desc')->paginate(15);
+        $list = Role::orderBy('id', 'desc')->paginate(15);
         return view('admin.roles.List', ['list' => $list]);
     }
 
@@ -28,7 +28,7 @@ class RoleController extends Controller
             $list = Role::findOrFail($id);
         }
         $view['permission'] = Permission::all();
-        $view['list'] =  $list;
+        $view['list'] = $list;
         return view('admin.roles.edit', $view);
     }
 
@@ -38,6 +38,7 @@ class RoleController extends Controller
             'name' => 'required|max:255',
             'display_name' => 'required|max:255',
             'description' => 'required|max:255',
+            'permission' => 'nullable'
         ];
         if ($request['id']) {
             $row = Role::find($request['id']);
@@ -48,12 +49,12 @@ class RoleController extends Controller
         $row->name = $request['name'];
         $row->display_name = $request['display_name'];
         $row->save();
-
-        //$owner->perms()->sync(array($createPost->id));
+        $row->savePermissions($request['permission']);
         return redirect()->route('role')->with('notify', '操作成功!');
     }
 
-    public function del($id = ''){
+    public function del($id = '')
+    {
         Role::whereId($id)->delete();
         return redirect()->route('role')->with('notify', '操作成功!');
     }

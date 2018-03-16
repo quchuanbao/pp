@@ -20,7 +20,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 
-Auth::routes();
+//Route::middleware(['permission:admin'])->group(['namespace' => 'Admin'], function() {
+//    //管理员
+//    Route::get('/admin/home', 'AdminsController@home');
+//});
+
 
 Route::group(['namespace' => 'Admin'], function() {
     Route::get('/admin/admin', 'LoginController@showLoginForm')->name('loginadmin');
@@ -28,11 +32,12 @@ Route::group(['namespace' => 'Admin'], function() {
     Route::any('/admin/logout', 'LoginController@logout')->name('logoutadmin');
 
     //管理员
-    Route::get('/admin/home', 'AdminsController@home');
+    Route::get('/admin/home', 'AdminsController@home')->middleware('permission:admin');
     Route::get('/admin/admins', 'AdminsController@index')->name('admins');
     Route::get('/admin/admins/edit/{id?}', 'AdminsController@showEditForm');
     Route::get('/admin/admins/del/{id?}', 'AdminsController@del');
     Route::any('/admin/admins/store', 'AdminsController@store');
+
 
     //角色
     Route::get('/admin/role', 'RoleController@index')->name('role');

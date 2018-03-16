@@ -7,6 +7,7 @@ use App\Admin;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use App\Role;
 
 class AdminsController extends Controller
 {
@@ -41,7 +42,9 @@ class AdminsController extends Controller
         if ($id) {
             $admins = Admin::findOrFail($id);
         }
-        return view('admin.admins.edit', ['admins' => $admins]);
+        $view['role'] = Role::all();
+        $view['admins'] = $admins;
+        return view('admin.admins.edit', $view);
     }
 
     protected function store(Request $request, Admin $admins)
@@ -56,7 +59,7 @@ class AdminsController extends Controller
         ];
         if ($request['id']) {
             $rules['email'] = 'required|email|max:255';
-            $rules['password'] = 'present|min:6|confirmed';
+            $rules['password'] = 'nullable|min:6|confirmed';
             $rules['pic'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
             $admins = Admin::find($request['id']);
         }
@@ -79,12 +82,14 @@ class AdminsController extends Controller
         $admins->tel = $request['tel'];
         $admins->email = $request['email'];
         $admins->save();
+        $admins->saveRoles($request['role']);
         return redirect()->route('admins')->with('notify', '操作成功!');
     }
 
     public function del($id = ''){
-        $admins = Admin::findOrFail($id);
-        $admins->delete();
+        Admin::whereId($id)->delete();
+        //$admins = Admin::findOrFail($id);
+        //$admins->delete();
         return redirect()->route('admins')->with('notify', '操作成功!');
     }
 

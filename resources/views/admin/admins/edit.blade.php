@@ -136,6 +136,23 @@
                                     </div>
                                 </div>
                             </div>
+
+
+                            <div class="form-body">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3">分配角色</label>
+                                    <div class="col-md-9">
+                                        <select multiple="multiple" class="multi-select" id="role" name="role[]">
+                                            @foreach ($role as $row)
+                                                <option value="{{$row->id}}" @if ($admins->hasRole($row->name)) selected @endif >{{$row->display_name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+
+
                             <div class="form-group">
                                 <label class="control-label col-md-3">简介
                                     <span class="required" aria-required="true"> * </span>

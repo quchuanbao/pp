@@ -40,10 +40,10 @@
                                         <td> {{ $row->display_name }} </td>
                                         <td> {{ $row->description }} </td>
                                         <td>
-                                            <a href="/admin/admins/edit/{{$row->id}}" class="btn btn-outline  btn-sm purple">
+                                            <a href="/admin/permission/edit/{{$row->id}}" class="btn btn-outline  btn-sm purple">
                                                 <i class="fa fa-edit"></i> 修改 </a>
                                             <button
-                                                    data-href="/admin/admins/del/{{$row->id}}"
+                                                    data-href="/admin/permission/del/{{$row->id}}"
                                                     class="btn green-sharp btn-large listdel"
                                                     data-toggle="confirmation"
                                                     data-original-title="确定删除?" title="" >删除</button>
