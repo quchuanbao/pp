@@ -27,6 +27,14 @@
     <!--系统通知-->
     <link href="/admin/global/plugins/bootstrap-toastr/toastr.min.css" rel="stylesheet" type="text/css" />
 
+    <!--多选菜单-->
+    <link href="/admin/global/plugins/bootstrap-select/css/bootstrap-select.css" rel="stylesheet" type="text/css" />
+    <link href="/admin/global/plugins/jquery-multi-select/css/multi-select.css" rel="stylesheet" type="text/css" />
+    <link href="/admin/global/plugins/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <link href="/admin/global/plugins/select2/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css" />
+
+
+
 
     <!-- BEGIN THEME GLOBAL STYLES -->
     <link href="/admin/global/css/components.min.css" rel="stylesheet" id="style_components" type="text/css" />
@@ -868,6 +876,18 @@
                                     <span class="title">管理员列表</span>
                                 </a>
                             </li>
+                            <li class="nav-item  ">
+                                <a href="/admin/role/" class="nav-link ">
+                                    <i class="icon-info"></i>
+                                    <span class="title">角色管理</span>
+                                </a>
+                            </li>
+                            <li class="nav-item  ">
+                                <a href="/admin/permission/" class="nav-link ">
+                                    <i class="icon-info"></i>
+                                    <span class="title">权限管理</span>
+                                </a>
+                            </li>
 
                         </ul>
                     </li>
@@ -961,6 +981,16 @@
 <script src="/admin/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
 <script src="/admin/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
+<!--删除确认按钮-->
+<script src="/admin/global/plugins/bootstrap-confirmation/bootstrap-confirmation.min.js" type="text/javascript"></script>
+
+<!--多选框-->
+<script src="/admin/global/plugins/bootstrap-select/js/bootstrap-select.min.js" type="text/javascript"></script>
+<script src="/admin/global/plugins/jquery-multi-select/js/jquery.multi-select.js" type="text/javascript"></script>
+<script src="/admin/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+
+
+
 <!-- BEGIN THEME GLOBAL SCRIPTS -->
 <script src="/admin/global/scripts/app.min.js" type="text/javascript"></script>
 
@@ -970,7 +1000,8 @@
 <script src="/admin/global/plugins/bootstrap-toastr/toastr.min.js" type="text/javascript"></script>
 <!--删除确认按钮-->
 <script src="/admin/pages/scripts/ui-confirmations.js" type="text/javascript"></script>
-
+<!--多选框-->
+<script src="/admin/pages/scripts/components-multi-select.min.js" type="text/javascript"></script>
 
 <!-- END THEME GLOBAL SCRIPTS -->
 <!-- BEGIN THEME LAYOUT SCRIPTS -->

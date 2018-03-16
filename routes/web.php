@@ -23,21 +23,45 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::group(['namespace' => 'Admin'], function() {
-    Route::get('/admin/login', 'LoginController@showLoginForm')->name('loginadmin');
-
+    Route::get('/admin/admin', 'LoginController@showLoginForm')->name('loginadmin');
     Route::post('/admin/login', 'LoginController@login');
     Route::any('/admin/logout', 'LoginController@logout')->name('logoutadmin');
+
+    //管理员
+    Route::get('/admin/home', 'AdminsController@home');
+    Route::get('/admin/admins', 'AdminsController@index')->name('admins');
+    Route::get('/admin/admins/edit/{id?}', 'AdminsController@showEditForm');
+    Route::get('/admin/admins/del/{id?}', 'AdminsController@del');
+    Route::any('/admin/admins/store', 'AdminsController@store');
+
+    //角色
+    Route::get('/admin/role', 'RoleController@index')->name('role');
+    Route::get('/admin/role/edit/{id?}', 'RoleController@showEditForm');
+    Route::get('/admin/role/del/{id?}', 'RoleController@del');
+    Route::any('/admin/role/store', 'RoleController@store');
+
+    //权限
+    Route::get('/admin/permission', 'PermissionController@index')->name('permission');
+    Route::get('/admin/permission/edit/{id?}', 'PermissionController@showEditForm');
+    Route::get('/admin/permission/del/{id?}', 'PermissionController@del');
+    Route::any('/admin/permission/store', 'PermissionController@store');
+
+
+
+
+
+
+
+
+
 
 
     Route::get('/admin/register', 'RegisterController@showRegistrationForm')->name('adminregister');
     Route::post('/admin/register', 'RegisterController@register');
 
-    Route::get('/admin/home', 'AdminsController@home');
 
-    Route::get('/admin/admins', 'AdminsController@index')->name('admins');
-    Route::get('/admin/admins/edit/{id?}', 'AdminsController@showEditForm');
-    Route::get('/admin/admins/del/{id?}', 'AdminsController@del');
-    Route::any('/admin/admins/store', 'AdminsController@store');
+
+
 
     Route::get('/admin/newsclasses', 'NewsClassesController@index')->name('newsclasses');
     Route::get('/admin/newsclasses/edit/{id?}', 'NewsClassesController@showEditForm');
