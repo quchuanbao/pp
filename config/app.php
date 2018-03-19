@@ -13,6 +13,10 @@ return [
     |
     */
     'adminName' => '远诺电商管理系统',
+
+    'logActionType' => array('admins' => 'admins', 'permissions' => 'permissions', 'roles' => 'roles'),
+    'logAction' => array('view' => 'view', 'edit' => 'edit', 'create' => 'create', 'delete' => 'delete'),
+
     'name' => env('APP_NAME', 'Laravel'),
 
     /*

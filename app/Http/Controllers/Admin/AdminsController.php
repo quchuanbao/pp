@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use App\Role;
+use App\Log;
 
 class AdminsController extends Controller
 {
@@ -27,13 +29,14 @@ class AdminsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function home(){
+    public function home()
+    {
         return view('admin.admins.Home');
     }
 
     public function index()
     {
-        $admins = Admin::orderBy('id','desc')->paginate(15);
+        $admins = Admin::orderBy('id', 'desc')->paginate(15);
         return view('admin.admins.List', ['admins' => $admins]);
     }
 
@@ -76,17 +79,33 @@ class AdminsController extends Controller
             $admins->pic = '/storage/news/' . $request->file('pic')->hashName();
         }
 
-        $this->validate($request,$rules);
+        $this->validate($request, $rules);
         $admins->description = $request['description'];
         $admins->name = $request['name'];
         $admins->tel = $request['tel'];
         $admins->email = $request['email'];
         $admins->save();
         $admins->saveRoles($request['role']);
+        if ($request['id']) {
+            $option['unionId'] = $admins->id;
+            $option['action'] = config('app.logAction')['edit'];
+            $option['actionType'] = config('app.logActionType')['admins'];
+            $option['description'] = "编辑管理员：" . $admins->name;
+            $option['request'] = $request;
+        } else {
+            $option['unionId'] = $admins->id;
+            $option['action'] = config('app.logAction')['create'];
+            $option['actionType'] = config('app.logActionType')['admins'];
+            $option['description'] = "创建管理员：" . $admins->name;
+            $option['request'] = $request;
+        }
+
+        log::savelog($option);
         return redirect()->route('admins')->with('notify', '操作成功!');
     }
 
-    public function del($id = ''){
+    public function del($id = '')
+    {
         Admin::whereId($id)->delete();
         //$admins = Admin::findOrFail($id);
         //$admins->delete();
