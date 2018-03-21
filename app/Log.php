@@ -31,4 +31,12 @@ class Log extends Model
         $log->data = json_encode($option['request']->toArray());
         $log->save();
     }
+    public function userInfo()
+    {
+        return $this->belongsTo('App\Admin', 'user_id');
+    }
+    public static function getList($option){
+        //$option[]=['user_id',Auth::id()];
+        return Log::orderBy('id', 'desc')->where($option)->paginate(10);
+    }
 }

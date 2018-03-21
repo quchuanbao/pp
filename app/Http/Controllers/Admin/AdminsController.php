@@ -42,10 +42,13 @@ class AdminsController extends Controller
 
     public function showEditForm(Admin $admins, $id = '')
     {
+        $view['role'] = Role::all();
         if ($id) {
             $admins = Admin::findOrFail($id);
         }
-        $view['role'] = Role::all();
+        $option[] = ['union_id', $id];
+        $option[] = ['action_type', config('app.logActionType')['admins']];
+        $view['log'] = Log::getList($option);
         $view['admins'] = $admins;
         return view('admin.admins.edit', $view);
     }
@@ -104,11 +107,16 @@ class AdminsController extends Controller
         return redirect()->route('admins')->with('notify', '操作成功!');
     }
 
-    public function del($id = '')
+    public function del($id = '', Request $request)
     {
+        $info = Admin::find($id);
         Admin::whereId($id)->delete();
-        //$admins = Admin::findOrFail($id);
-        //$admins->delete();
+        $option['unionId'] = $id;
+        $option['action'] = config('app.logAction')['delete'];
+        $option['actionType'] = config('app.logActionType')['admins'];
+        $option['description'] = "删除管理员：" . $info->name;
+        $option['request'] = $request;
+        log::savelog($option);
         return redirect()->route('admins')->with('notify', '操作成功!');
     }
 

@@ -65,4 +65,5 @@
                 <!-- END SAMPLE TABLE PORTLET-->
             </div>
         </div>
+
 @endsection

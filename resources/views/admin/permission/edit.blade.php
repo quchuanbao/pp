@@ -86,4 +86,5 @@
             </div>
         </div>
     </div>
+    @include('admin.layouts.log')
 @endsection
