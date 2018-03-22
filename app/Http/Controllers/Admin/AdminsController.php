@@ -33,12 +33,40 @@ class AdminsController extends Controller
     {
         return view('admin.admins.Home');
     }
+//
+//    public function index()
+//    {
+//        $admins = Admin::orderBy('id', 'desc')->paginate(15);
+//        return view('admin.admins.List', ['admins' => $admins]);
+//    }
 
-    public function index()
+    public function index(Request $request)
     {
-        $admins = Admin::orderBy('id', 'desc')->paginate(15);
-        return view('admin.admins.List', ['admins' => $admins]);
+        $where = array();
+        if ($request['name']) {
+            $where[] = ['name', 'like', "%" . $request['name'] . "%"];
+        }
+//        if ($request['class_id']) {
+//            $where[] = ['class_id', $request['class_id']];
+//        }
+//        if ($request['hot']) {
+//            $where[] = ['hot', $request['hot']];
+//        }
+        $lists = Admin::orderBy('id', 'desc')->where($where)->paginate(15);
+
+//        foreach ($lists as $n=>$v){
+//            var_dump($v->roles());exit;
+////            foreach ($v->roles() as $n1=>$v1){
+////                var_dump($v1->name);exit;
+////            }
+//        }
+
+        $view['admins'] = $lists;
+        $view['request'] = $request;
+//        $classList = NewsClasses::where('parent_id', 0)->get();
+        return view('admin.admins.List', $view);
     }
+
 
     public function showEditForm(Admin $admins, $id = '')
     {

@@ -1,8 +1,7 @@
 @extends('admin.layouts.admin')
-@section('m5', 'active open')
-@section('m50', 'open')
-@section('m51', 'active open')
-
+@section('m1', 'active open')
+@section('m10', 'open')
+@section('m12', 'active open')
 @section('title', '角色管理')
 @section('content')
 

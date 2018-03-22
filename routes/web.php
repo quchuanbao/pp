@@ -33,7 +33,7 @@ Route::group(['namespace' => 'Admin'], function() {
 
     //管理员
     Route::get('/admin/home', 'AdminsController@home')->middleware('permission:admin');
-    Route::get('/admin/admins', 'AdminsController@index')->name('admins');
+    Route::any('/admin/admins', 'AdminsController@index')->name('admins');
     Route::get('/admin/admins/edit/{id?}', 'AdminsController@showEditForm');
     Route::get('/admin/admins/del/{id?}', 'AdminsController@del');
     Route::any('/admin/admins/store', 'AdminsController@store');

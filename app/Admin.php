@@ -41,4 +41,9 @@ class Admin extends Authenticatable
             $this->roles()->detach();
         }
     }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id');
+    }
 }

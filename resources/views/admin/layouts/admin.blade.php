@@ -863,34 +863,40 @@
 
 
 
-                    <li class="nav-item  ">
+                    <li class="nav-item  @yield('m1')">
                         <a href="javascript:;" class="nav-link nav-toggle">
-                            <i class="icon-user"></i>
-                            <span class="title">管理员管理</span>
-                            <span class="arrow"></span>
+                            <i class="icon-settings"></i>
+                            <span class="title">系统管理</span>
+                            <span class="arrow @yield('m10')"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item  ">
+                            <li class="nav-item  @yield('m11')">
                                 <a href="/admin/admins/" class="nav-link ">
-                                    <i class="icon-info"></i>
-                                    <span class="title">管理员列表</span>
+                                    <i class="icon-user"></i>
+                                    <span class="title">管理员</span>
                                 </a>
                             </li>
-                            <li class="nav-item  ">
+
+
+                            <li class="nav-item  @yield('m12')">
                                 <a href="/admin/role/" class="nav-link ">
-                                    <i class="icon-info"></i>
+                                    <i class="icon-users"></i>
                                     <span class="title">角色管理</span>
                                 </a>
                             </li>
-                            <li class="nav-item  ">
+
+                            <li class="nav-item  @yield('m13')">
                                 <a href="/admin/permission/" class="nav-link ">
-                                    <i class="icon-info"></i>
+                                    <i class="fa fa-street-view"></i>
                                     <span class="title">权限管理</span>
                                 </a>
                             </li>
 
                         </ul>
                     </li>
+
+
+
 
 
 
@@ -918,32 +924,6 @@
                             <span>@yield('title')</span>
                         </li>
                     </ul>
-                    <div class="page-toolbar">
-                        <div class="btn-group pull-right">
-                            <button type="button" class="btn green btn-sm btn-outline dropdown-toggle" data-toggle="dropdown"> Actions
-                                <i class="fa fa-angle-down"></i>
-                            </button>
-                            <ul class="dropdown-menu pull-right" role="menu">
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-bell"></i> Action</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-shield"></i> Another action</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-user"></i> Something else here</a>
-                                </li>
-                                <li class="divider"> </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="icon-bag"></i> Separated link</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
                 <!-- END PAGE BAR -->
                 <!-- BEGIN PAGE TITLE-->

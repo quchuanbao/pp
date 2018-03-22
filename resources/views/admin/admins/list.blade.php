@@ -1,16 +1,18 @@
 @extends('admin.layouts.admin')
-@section('m5', 'active open')
-@section('m50', 'open')
-@section('m51', 'active open')
+@section('m1', 'active open')
+@section('m10', 'open')
+@section('m11', 'active open')
 @section('title', '管理员管理')
 @section('content')
+
+
     <div class="row">
             <div class="col-md-12">
                 <!-- BEGIN SAMPLE TABLE PORTLET-->
                 <div class="portlet light bordered">
                     <div class="portlet-title">
                         <div class="caption">
-                            <i class="icon-social-dribbble font-green"></i>
+                            {{--<i class="icon-social-dribbble font-green"></i>--}}
                             <span class="caption-subject font-green bold uppercase">管理员管理</span>
                         </div>
                         <div class="actions">
@@ -19,6 +21,29 @@
                             </a>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/admins/') }}"  id="form" >
+                            {{ csrf_field() }}
+                            <div class="col-md-4 col-sm-4">
+                                <div id="sample_1_filter" class="dataTables_filter">
+                                    <input type="text" name="name" placeholder="姓名" class="form-control" value="{{ old('name',$request['name'])}}">
+                                </div>
+                            </div>
+                            {{--<div class="col-md-2 col-sm-2">--}}
+                            {{--<div id="sample_1_filter" class="dataTables_filter">--}}
+                            {{--<span>草稿 </span> <input  type="checkbox" value="1" name="hot" class="make-switch" @if(old('title',$request['hot'])==1) checked @endif data-on-color="success" data-off-color="warning">--}}
+                            {{--</div>--}}
+                            {{--</div>--}}
+
+                            <div class="col-md-2 col-sm-2">
+                                <div id="sample_1_filter" class="dataTables_filter">
+                                    <button type="submit" class="btn green">查询</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
                     <div class="portlet-body">
 
                         <div class="table-scrollable">
@@ -31,7 +56,7 @@
                                     <th> 电话 </th>
                                     <th> 邮箱 </th>
                                     <th> 最后登录时间 </th>
-                                    <th> 状态 </th>
+                                    <th> 角色 </th>
                                     <th> 操作 </th>
                                 </tr>
                                 </thead>
@@ -45,7 +70,10 @@
                                         <td> {{ $admin->email }} </td>
                                         <td> {{ $admin->updated_at }} </td>
                                         <td>
-                                           正常
+                                            @foreach ($admin->roles as $row)
+                                                {{$row['display_name']}}<br>
+                                            @endforeach
+
                                         </td>
                                         <td>
                                             <a href="/admin/admins/edit/{{$admin->id}}" class="btn btn-outline  btn-sm purple">
