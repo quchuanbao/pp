@@ -25,6 +25,20 @@
                     <div class="row">
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/admin/admins/') }}"  id="form" >
                             {{ csrf_field() }}
+
+
+
+                            <div class="col-md-4">
+                                <select name="role[]" class="bs-select form-control" multiple>
+                                    @foreach ($role as $row)
+                                        <option value="{{$row->id}}"
+                            @if ( @in_array($row->id,$request['role']) ) selected="selected" @endif
+                                        >{{$row->display_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+
                             <div class="col-md-4 col-sm-4">
                                 <div id="sample_1_filter" class="dataTables_filter">
                                     <input type="text" name="name" placeholder="姓名" class="form-control" value="{{ old('name',$request['name'])}}">
@@ -70,7 +84,7 @@
                                         <td> {{ $admin->email }} </td>
                                         <td> {{ $admin->updated_at }} </td>
                                         <td>
-                                            @foreach ($admin->roles as $row)
+                                            @foreach ($admin->getRoles as $row)
                                                 {{$row['display_name']}}<br>
                                             @endforeach
 

@@ -46,24 +46,20 @@ class AdminsController extends Controller
         if ($request['name']) {
             $where[] = ['name', 'like', "%" . $request['name'] . "%"];
         }
-//        if ($request['class_id']) {
-//            $where[] = ['class_id', $request['class_id']];
-//        }
-//        if ($request['hot']) {
-//            $where[] = ['hot', $request['hot']];
-//        }
         $lists = Admin::orderBy('id', 'desc')->where($where)->paginate(15);
+        if ($request['role']) {
+            $roleQruey = $request['role'];
+//            $lists = Admin::with(['roles' => function ($query) use ($roleQruey) {
+//                $query->whereIn('role_id', $roleQruey);
+//            }])->orderBy('id', 'desc')->where($where)->paginate(15);
 
-//        foreach ($lists as $n=>$v){
-//            var_dump($v->roles());exit;
-////            foreach ($v->roles() as $n1=>$v1){
-////                var_dump($v1->name);exit;
-////            }
-//        }
-
+            $lists = Admin::whereHas('roles', function ($query) use ($roleQruey) {
+                $query->whereIn('role_id', $roleQruey);
+            })->orderBy('id', 'desc')->where($where)->paginate(15);
+        }
         $view['admins'] = $lists;
         $view['request'] = $request;
-//        $classList = NewsClasses::where('parent_id', 0)->get();
+        $view['role'] = Role::get();
         return view('admin.admins.List', $view);
     }
 

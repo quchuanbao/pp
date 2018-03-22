@@ -42,7 +42,7 @@ class Admin extends Authenticatable
         }
     }
 
-    public function roles()
+    public function getRoles()
     {
         return $this->belongsToMany('App\Role', 'role_user', 'user_id', 'role_id');
     }
